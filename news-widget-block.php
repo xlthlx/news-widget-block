@@ -12,3 +12,10 @@
  * @package         News_Widget_Block
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
+define( 'NWB__PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+define( 'NWB__PLUGIN_URL', plugins_url( '/', __FILE__ ) );
+
