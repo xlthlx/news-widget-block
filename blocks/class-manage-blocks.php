@@ -61,7 +61,7 @@ class Manage_Blocks {
 	}
 
 	/**
-	 * Get and decode an API response.
+	 * Gets and decode an API response.
 	 *
 	 * @param string $url The REST API url.
 	 * @param array  $args The REST API args.
@@ -92,6 +92,58 @@ class Manage_Blocks {
 
 		return $data;
 	}
+
+	/**
+	 * Gets the news.
+	 *
+	 * @return array
+	 */
+	public function get_news(): array {
+
+		$nwb_api_key = get_option( 'nwb-api-key' );
+		$items       = array();
+
+		if ( '' !== $nwb_api_key ) {
+
+			$url  = 'https://newsapi.org/v2/top-headlines';
+			$args = array(
+				'headers' => array(
+					'Content-Type' => 'application/json',
+					'X-Api-Key'    => $nwb_api_key,
+					'user-agent'   => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:130.0) Gecko/20100101 Firefox/130.0',
+				),
+				'body' => array(
+					'pageSize' => 3,
+					'country'  => 'us',
+				),
+			);
+
+			$news = $this->remote_get( $url, $args );
+
+			if ( isset( $news['status'] ) ) {
+				if ( 'ok' === $news['status'] ) {
+					// $items = $news;
+					$i = 0;
+					foreach ( $news['articles'] as $article ) {
+						$items[ $i ]['title']       = $article['title'];
+						$items[ $i ]['description'] = isset( $article['description'] ) ? $article['description'] : '';
+						$items[ $i ]['content']     = isset( $article['content'] ) ? $article['content'] : '';
+						$items[ $i ]['author']      = isset( $article['author'] ) ? $article['author'] : '';
+						$items[ $i ]['source']      = isset( $article['source']['name'] ) ? $article['source']['name'] : '';
+						$items[ $i ]['url']         = isset( $article['url'] ) ? $article['url'] : '';
+						$items[ $i ]['date']        = isset( $article['publishedAt'] ) ? gmdate( 'd/m/Y H:i', strtotime( $article['publishedAt'] ) ) : '';
+						$items[ $i ]['img']         = isset( $article['urlToImage'] ) ? $article['urlToImage'] : '';
+						$i++;
+					}
+				}
+				if ( 'error' === $news['status'] ) {
+					error_log( 'Response Error: ' . print_r( $news, true ) );
+				}
+			}
+		}
+
+		return $items;
+	}
 }
 
-Manage_Blocks::get_instance();
+$block = Manage_Blocks::get_instance();
