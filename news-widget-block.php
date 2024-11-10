@@ -5,6 +5,8 @@
  * Description:     News Widget Block is a WordPress plugin that adds a custom block with a setting to choose the number of articles to display.
  * Author:          xlthlx <xlthlx@gmail.com>
  * Author URI:      https://piccioni.london
+ * License:         GPLv3+
+ * License URI:     https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:     news-widget-block
  * Domain Path:     /languages
  * Version:         0.1.0
