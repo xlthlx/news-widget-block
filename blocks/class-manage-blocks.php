@@ -35,6 +35,7 @@ class Manage_Blocks {
 	 */
 	public function init(): void {
 		add_action( 'init', array( $this, 'blocks_init' ) );
+		add_action( 'init', array( $this, 'blocks_register_fields' ) );
 	}
 
 	/**
@@ -143,6 +144,29 @@ class Manage_Blocks {
 		}
 
 		return $items;
+	}
+
+	/**
+	 * Register custom meta fields for all blocks.
+	 *
+	 * @return void
+	 */
+	public function blocks_register_fields(): void {
+
+		register_post_meta(
+			'',
+			'news_number',
+			array(
+				'description'       => 'Nember of News',
+				'show_in_rest'      => true,
+				'type'              => 'string',
+				'single'            => true,
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => function () {
+					return current_user_can( 'edit_posts' );
+				},
+			)
+		);
 	}
 }
 
