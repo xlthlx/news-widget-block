@@ -55,8 +55,7 @@ class News_Widget_Block {
 	 */
 	public function load_plugin(): void {
 
-		//TODO
-
+		require_once NWB__PLUGIN_PATH . 'blocks/class-blocks-config.php';
 	}
 
 	/**
@@ -74,7 +73,7 @@ class News_Widget_Block {
 	 * @return void
 	 */
 	public function plugin_activate(): void {
-		//TODO
+		// TODO.
 	}
 
 	/**
@@ -83,7 +82,7 @@ class News_Widget_Block {
 	 * @return void
 	 */
 	public function plugin_deactivate(): void {
-		//TODO
+		// TODO.
 	}
 
 	/**
@@ -92,6 +91,6 @@ class News_Widget_Block {
 	 * @return void
 	 */
 	public static function plugin_uninstall(): void {
-		//TODO
+		// TODO.
 	}
 }
