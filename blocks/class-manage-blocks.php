@@ -7,6 +7,8 @@
 
 namespace News\Widget\Block;
 
+use JsonException;
+
 /**
  * Class definition.
  */
@@ -56,6 +58,39 @@ class Manage_Blocks {
 	 */
 	public function blocks_init(): void {
 		register_block_type( __DIR__ . '/build/us-news/' );
+	}
+
+	/**
+	 * Get and decode an API response.
+	 *
+	 * @param string $url The REST API url.
+	 * @param array  $args The REST API args.
+	 *
+	 * @return array|string
+	 */
+	public function remote_get( $url, $args = array() ): array|string {
+
+		$data = array();
+
+		if ( ! empty( $args ) ) {
+			$response = wp_remote_get( esc_url_raw( $url ), $args );
+		} else {
+			$response = wp_remote_get( $url );
+		}
+
+		if ( is_wp_error( $response ) ) {
+			error_log( 'WP Error: ' . $response->get_error_message() );
+		} else {
+			$body = wp_remote_retrieve_body( $response );
+
+			try {
+				$data = json_decode( $body, true, 512, JSON_THROW_ON_ERROR );
+			} catch ( JsonException $error ) {
+				error_log( 'Json Decode Error: ' . $error->getMessage() . $pages );
+			}
+		}
+
+		return $data;
 	}
 }
 
