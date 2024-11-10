@@ -1,7 +1,7 @@
 === News Widget Block ===
 Contributors: xlthlx
-Donate link: https://example.com/
-Tags: comments, spam
+Donate link: https://donate.com/
+Tags: widgets, blocks
 Requires at least: 4.5
 Tested up to: 6.6.2
 Requires PHP: 5.6
