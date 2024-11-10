@@ -14,6 +14,8 @@
  * @package         News_Widget_Block
  */
 
+use News\Widget\Block\News_Widget_Block;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }

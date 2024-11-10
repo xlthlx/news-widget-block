@@ -5,6 +5,8 @@
  * @package News_Widget_Block
  */
 
+namespace News\Widget\Block;
+
 /**
  * Class definition.
  */
@@ -55,7 +57,7 @@ class News_Widget_Block {
 	 */
 	public function load_plugin(): void {
 
-		require_once NWB__PLUGIN_PATH . 'blocks/class-blocks-config.php';
+		require_once NWB__PLUGIN_PATH . 'blocks/class-manage-blocks.php';
 	}
 
 	/**
