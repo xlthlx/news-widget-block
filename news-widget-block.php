@@ -19,3 +19,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'NWB__PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'NWB__PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 
+require_once NWB__PLUGIN_PATH . 'class-news-widget-block.php';
+
+$news_widget_block = News_Widget_Block::get_instance();
+
+register_activation_hook( __FILE__, array( $news_widget_block, 'plugin_activate' ) );
+register_deactivation_hook( __FILE__, array( $news_widget_block, 'plugin_deactivate' ) );
+register_uninstall_hook( __FILE__, '$news_widget_block::plugin_uninstall' );
+
