@@ -1,1 +1,1 @@
-# news-widget-block
+# News Widget Block
