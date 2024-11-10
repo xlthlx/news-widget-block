@@ -1,38 +1,43 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
 import { __ } from '@wordpress/i18n';
-
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
-import { useBlockProps } from '@wordpress/block-editor';
-
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
+import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
+import { useSelect } from '@wordpress/data';
+import { useEntityProp } from '@wordpress/core-data';
+import { __experimentalNumberControl as NumberControl, PanelBody, PanelRow } from '@wordpress/components';
 import './editor.scss';
-
-/**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
- *
- * @return {Element} Element to render.
- */
 export default function Edit() {
+	const blockProps = useBlockProps();
+
+	const postType = useSelect(
+		( select ) => select( 'core/editor' ).getCurrentPostType(),
+		[]
+	);
+
+	const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta' );
+
+	const newsNumber = meta[ 'news_number' ];
+
+	const updateNumber = ( newValue ) => {
+		setMeta( { ...meta, 'news_number': newValue } );
+	};
+
 	return (
-		<p { ...useBlockProps() }>
-			{ __( 'Us News – hello from the editor!', 'us-news' ) }
-		</p>
+		<>
+			<InspectorControls>
+				<PanelBody title={ __( 'News Options' ) } initialOpen={ true }>
+					<PanelRow>
+						<fieldset>
+							<NumberControl
+								label={ __( 'Number of News', 'digital-catalogue' ) }
+								value={ newsNumber }
+								onChange={ updateNumber }
+							/>
+						</fieldset>
+					</PanelRow>
+				</PanelBody>
+			</InspectorControls>
+			<div {...blockProps}>
+			{ __( 'Us News', 'us-news' ) }
+			</div>
+		</>
 	);
 }

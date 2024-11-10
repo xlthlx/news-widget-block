@@ -6,7 +6,7 @@
   "title": "Us News",
   "category": "widgets",
   "icon": "smiley",
-  "description": "Example block scaffolded with Create Block tool.",
+  "description": "Widget block to show US Top Headlines.",
   "example": {},
   "supports": {
     "html": false
@@ -14,6 +14,5 @@
   "textdomain": "news-widget-block",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
-  "style": "file:./style-index.css",
-  "viewScript": "file:./view.js"
+  "style": "file:./style-index.css"
 }
