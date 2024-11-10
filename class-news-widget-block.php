@@ -58,6 +58,10 @@ class News_Widget_Block {
 	public function load_plugin(): void {
 
 		require_once NWB__PLUGIN_PATH . 'blocks/class-manage-blocks.php';
+
+		if ( is_admin() ) {
+			require_once NWB__PLUGIN_PATH . 'admin/class-options-page.php';
+		}
 	}
 
 	/**
