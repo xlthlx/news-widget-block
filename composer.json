@@ -1,0 +1,38 @@
+{
+  "name": "xlthlx/news-widget-block",
+  "description": "News Widget Block",
+  "keywords": [
+    "WordPress",
+    "Plugin"
+  ],
+  "authors": [
+    {
+      "name": "xlthlx",
+      "homepage": "https://piccioni.london"
+    }
+  ],
+  "homepage": "https://github.com/xlthlx/news-widget-block",
+  "scripts": {
+    "lint:wpcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs --ignore=vendor/*,node_modules/*,wp-content/*,blocks/build/* --extensions=php . -n -v --report-file=report.txt",
+    "lint:wpcs:fix": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf --ignore=vendor/*,node_modules/*,wp-content/*,blocks/build/* --extensions=php .",
+    "lint:php": "@php ./vendor/bin/parallel-lint --exclude .git --exclude vendor .",
+    "make-pot": "wp i18n make-pot . languages/news-widget-block.pot",
+    "readme": "@php ./vendor/wpreadme2markdown/wp2md/bin/wp2md -i readme.txt -o README.md"
+  },
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "php-parallel-lint/php-console-highlighter": "^1.0",
+    "php-parallel-lint/php-parallel-lint": "^1.4",
+    "roave/security-advisories": "dev-latest",
+    "squizlabs/php_codesniffer": "^3.10",
+    "wp-cli/i18n-command": "^2.6",
+    "wp-coding-standards/wpcs": "^2.3",
+    "wpreadme2markdown/wp2md": "^4.0",
+    "wptrt/wpthemereview": "^0.2.1"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}
