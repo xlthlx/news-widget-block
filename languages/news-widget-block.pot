@@ -1,0 +1,101 @@
+# Copyright (C) 2024 xlthlx <xlthlx@gmail.com>
+# This file is distributed under the GPLv3+.
+msgid ""
+msgstr ""
+"Project-Id-Version: News Widget Block 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/news-widget-block\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-11-11T08:53:50+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: news-widget-block\n"
+
+#. Plugin Name of the plugin
+#: news-widget-block.php
+msgid "News Widget Block"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: news-widget-block.php
+msgid "https://github.com/xlthlx/news-widget-block"
+msgstr ""
+
+#. Description of the plugin
+#: news-widget-block.php
+msgid "News Widget Block is a WordPress plugin that adds a custom block with a setting to choose the number of articles to display."
+msgstr ""
+
+#. Author of the plugin
+#: news-widget-block.php
+msgid "xlthlx <xlthlx@gmail.com>"
+msgstr ""
+
+#. Author URI of the plugin
+#: news-widget-block.php
+msgid "https://piccioni.london"
+msgstr ""
+
+#: admin/class-options-page.php:64
+#: admin/class-options-page.php:114
+msgid "News Widget Block Settings"
+msgstr ""
+
+#: admin/class-options-page.php:71
+msgid "API key"
+msgstr ""
+
+#: admin/class-options-page.php:86
+msgid "Insert your API key."
+msgstr ""
+
+#: admin/class-options-page.php:100
+msgid "NEWS API key. You can get it here: "
+msgstr ""
+
+#: admin/class-options-page.php:115
+msgid "NWB Settings"
+msgstr ""
+
+#: admin/class-options-page.php:142
+msgid "Settings saved."
+msgstr ""
+
+#: admin/class-options-page.php:152
+msgid "Save"
+msgstr ""
+
+#: blocks/class-manage-blocks.php:87
+msgid "Please select a number of news items."
+msgstr ""
+
+#: blocks/class-manage-blocks.php:93
+msgid "Please insert you News API key in the "
+msgstr ""
+
+#: blocks/class-manage-blocks.php:94
+msgid "Settings page"
+msgstr ""
+
+#: blocks/class-manage-blocks.php:119
+msgid "Read more"
+msgstr ""
+
+#: blocks/class-manage-blocks.php:133
+msgid "No News here."
+msgstr ""
+
+#: blocks/build/us-news/block.json
+#: blocks/src/us-news/block.json
+msgctxt "block title"
+msgid "Us News"
+msgstr ""
+
+#: blocks/build/us-news/block.json
+#: blocks/src/us-news/block.json
+msgctxt "block description"
+msgid "Widget block to show US Top Headlines."
+msgstr ""
