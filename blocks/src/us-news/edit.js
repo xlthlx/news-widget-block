@@ -1,10 +1,11 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
+import ServerSideRender from '@wordpress/server-side-render';
 import { useSelect } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
 import { __experimentalNumberControl as NumberControl, PanelBody, PanelRow } from '@wordpress/components';
 import './editor.scss';
-export default function Edit() {
+export default function Edit(attributes, context, setAttributes) {
 	const blockProps = useBlockProps();
 
 	const postType = useSelect(
@@ -36,7 +37,13 @@ export default function Edit() {
 				</PanelBody>
 			</InspectorControls>
 			<div {...blockProps}>
-			{ __( 'Us News', 'us-news' ) }
+				<ServerSideRender
+					attributes={attributes}
+					block="news-widget-block/us-news"
+					urlQueryArgs={{
+						previewNewsNumber: newsNumber,
+					}}
+				/>
 			</div>
 		</>
 	);

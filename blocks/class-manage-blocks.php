@@ -58,7 +58,86 @@ class Manage_Blocks {
 	 * @return void
 	 */
 	public function blocks_init(): void {
-		register_block_type( __DIR__ . '/build/us-news/' );
+		register_block_type(
+			__DIR__ . '/build/us-news/',
+			array(
+				'api_version'     => 2,
+				'render_callback' => array( $this, 'us_news_render_callback' ),
+
+			)
+		);
+	}
+
+	/**
+	 * Callback for dynamic frontend rendering of US News details.
+	 *
+	 * @param array  $block_attributes The block attributes.
+	 * @param string $content The block content.
+	 *
+	 * @return string
+	 */
+	public function us_news_render_callback( $block_attributes, $content ): string {
+
+		$post_meta   = get_post_meta( get_the_ID(), 'news_number', true );
+		$nwb_api_key = get_option( 'nwb-api-key' );
+		$output      = '';
+
+		if ( empty( $post_meta ) ) {
+			return '<div ' . get_block_wrapper_attributes() . '>
+				<p>' . __( 'Please select a number of news items.', 'news-widget-block' ) . '</p>
+			</div>';
+		}
+
+		if ( '' === $nwb_api_key ) {
+			return '<div ' . get_block_wrapper_attributes() . '>
+				<p>' . __( 'Please insert you News API key in the ', 'news-widget-block' ) . '
+				<a href="/wp-admin/admin.php?page=news-widget-block-settings">' . __( 'Settings page', 'news-widget-block' ) . '</a>
+				</p>
+			</div>';
+		}
+
+		$news = $this->get_news();
+		if ( ! empty( $news ) ) {
+			$output .= '<ul style="list-style-type:none;margin:0;padding:0">';
+
+			foreach ( $news as $article ) {
+				$output .= '<li class="wp-block-post">
+
+							<div class="wp-block-group">
+								<h2 class="wp-block-post-title">
+									<a href="' . $article['url'] . '" target="_blank">
+									' . $article['title'] . '
+									</a>
+								</h2>
+
+								<div class="wp-block-post-excerpt">
+									<p class="wp-block-post-excerpt__excerpt">
+									' . $article['description'] . '
+									</p>
+									<p class="wp-block-post-excerpt__more-text">
+										<a class="wp-block-post-excerpt__more-link" href="' . $article['url'] . '" target="_blank">
+											' . __( 'Read more', 'news-widget-block' ) . '
+										</a>
+									</p>
+								</div>
+
+								<div class="wp-block-post-date">
+									<time datetime="' . gmdate( 'c', strtotime( $article['date'] ) ) . '">' . $article['date'] . '</time>
+								</div>
+							</div>
+
+					</li>';
+			}
+			$output .= '</ul>';
+		} else {
+			$output = '<p>' . __( 'No News here.', 'news-widget-block' ) . '</p>';
+		}
+
+		if ( '' !== $output ) {
+			$content = '<div ' . get_block_wrapper_attributes() . '>' . $output . '</div>';
+		}
+
+		return $content;
 	}
 
 	/**
@@ -102,9 +181,10 @@ class Manage_Blocks {
 	public function get_news(): array {
 
 		$nwb_api_key = get_option( 'nwb-api-key' );
+		$news_number = get_post_meta( get_the_ID(), 'news_number', true );
 		$items       = array();
 
-		if ( '' !== $nwb_api_key ) {
+		if ( '' !== $nwb_api_key && ! empty( $news_number ) ) {
 
 			$url  = 'https://newsapi.org/v2/top-headlines';
 			$args = array(
@@ -114,7 +194,7 @@ class Manage_Blocks {
 					'user-agent'   => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:130.0) Gecko/20100101 Firefox/130.0',
 				),
 				'body' => array(
-					'pageSize' => 3,
+					'pageSize' => $news_number,
 					'country'  => 'us',
 				),
 			);
@@ -123,7 +203,6 @@ class Manage_Blocks {
 
 			if ( isset( $news['status'] ) ) {
 				if ( 'ok' === $news['status'] ) {
-					// $items = $news;
 					$i = 0;
 					foreach ( $news['articles'] as $article ) {
 						$items[ $i ]['title']       = $article['title'];
@@ -157,7 +236,7 @@ class Manage_Blocks {
 			'',
 			'news_number',
 			array(
-				'description'       => 'Nember of News',
+				'description'       => 'Number of News',
 				'show_in_rest'      => true,
 				'type'              => 'string',
 				'single'            => true,
@@ -170,4 +249,4 @@ class Manage_Blocks {
 	}
 }
 
-$block = Manage_Blocks::get_instance();
+Manage_Blocks::get_instance();

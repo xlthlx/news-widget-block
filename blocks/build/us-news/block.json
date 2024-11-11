@@ -1,11 +1,11 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
+  "apiVersion": 2,
   "name": "news-widget-block/us-news",
   "version": "0.1.0",
   "title": "Us News",
   "category": "widgets",
-  "icon": "smiley",
+  "icon": "open-folder",
   "description": "Widget block to show US Top Headlines.",
   "example": {},
   "supports": {
