@@ -98,7 +98,7 @@ class Manage_Blocks {
 
 		$news = $this->get_news();
 		if ( ! empty( $news ) ) {
-			$output .= '<ul style="list-style-type:none;margin:0;padding:0">';
+			$output .= '<ul>';
 
 			foreach ( $news as $article ) {
 				$output .= '<li class="wp-block-post">

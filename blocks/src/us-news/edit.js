@@ -4,7 +4,6 @@ import ServerSideRender from '@wordpress/server-side-render';
 import { useSelect } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
 import { __experimentalNumberControl as NumberControl, PanelBody, PanelRow } from '@wordpress/components';
-import './editor.scss';
 export default function Edit(attributes, context, setAttributes) {
 	const blockProps = useBlockProps();
 
